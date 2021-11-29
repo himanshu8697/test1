@@ -1,0 +1,46 @@
+Select  A.crr_reference_no,A.crr_review_no,A.crr_inserted_on,c.cr_initiator_name as Call_raised_by,
+            d.user_full_name as Call_sender,    eip.SQLMAS.GEN_FN_GetUserName(a.crr_send_to_user) as Call_receiver,    a.crr_Review_Details 
+            FROM helpdesk.dbo.HDS_CALL_REVIEW A, 
+                  (select CRR_REFERENCE_NO,MAX(CAST(crr_review_no AS INT)) AS CRR_REVIEW_NO 
+                              from helpdesk.dbo.hds_call_review 
+WHERE crr_reference_no  in (select cr_Reference_no from helpdesk.dbo.hds_call_request  
+                                    where cr_status='IN-PROGRESS'
+                                    and  CR_INSERTED_ON BETWEEN '01-Jan-2008' AND getdate()+1)
+                                                and crr_inserted_by not in ('100','169625')
+/*
+USE helpdesk
+go
+
+ 
+
+ 
+
+ 
+
+select day(convert(varchar(15),crr_inserted_on,107)),count(*) From hds_call_review where     
+crr_inserted_by in (163384,121591,142772,95567) and crr_inserted_on >= '01-Feb-2018'
+and crr_inserted_on < '28-Feb-2018'    
+group by convert(varchar(15),crr_inserted_on,107)    
+order by convert(varchar(15),crr_inserted_on,107)
+
+ 
+
+ 
+
+ 
+
+  Exec #JV_Delete @Company_Code = 1,  @From_Date = '26-OCT-2017', @To_Date='31-OCT-2017'
+       --running
+       Violation of PRIMARY KEY constraint 'PK_TJOUR_Journal_Voucher_Serial_Number'. Cannot insert duplicate key in object 'SQLFAS.FAS_T_Journals'. The duplicate key value is (LE/OZ000010/JV1017/QAR/0170134, 159).
+    
+ */          
+                              group by crr_reference_no ) b ,
+            helpdesk.dbo.hds_call_request c,
+            lnt.dbo.user_general_details d 
+                  WHERE  a.crr_reference_no=c.cr_reference_no and
+                              A.CRR_REFERENCE_NO=B.CRR_REFERENCE_NO AND 
+                              A.CRR_rEVIEW_NO = B.CRR_rEVIEW_NO
+                              and c.cr_status='IN-PROGRESS'
+                              and a.crr_inserted_by=d.uid
+                              and a.crr_send_to_user in ('95567','142772','163384','121591','160110','1090588') -- DBA:95567    Hari: 121591    Ramesh: 142772    Chidambaram: 163384 Dhana:160110
+            order by  A.crr_inserted_on desc
