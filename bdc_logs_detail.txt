@@ -1,0 +1,348 @@
+root@bdcmaster:/home/administrator# kubectl get pods -n mssql-cluster -o wide
+NAME              READY   STATUS    RESTARTS   AGE     IP             NODE       NOMINATED NODE   READINESS GATES
+appproxy-k5pxp    2/2     Running   30         67d     10.244.1.26    bdcnode1   <none>           <none>
+compute-0-0       3/3     Running   47         93d     10.244.1.24    bdcnode1   <none>           <none>
+control-rx46j     3/3     Running   74         93d     10.244.1.35    bdcnode1   <none>           <none>
+controldb-0       2/2     Running   4          5d22h   10.244.2.110   bdcnode2   <none>           <none>
+controlwd-mw8mx   1/1     Running   15         67d     10.244.1.23    bdcnode1   <none>           <none>
+data-0-0          3/3     Running   6          5d22h   10.244.2.106   bdcnode2   <none>           <none>
+data-0-1          3/3     Running   45         93d     10.244.1.31    bdcnode1   <none>           <none>
+gateway-0         2/2     Running   27         93d     10.244.1.25    bdcnode1   <none>           <none>
+logsdb-0          1/1     Running   2          5d22h   10.244.2.111   bdcnode2   <none>           <none>
+logsui-7cwf7      0/1     Evicted   0          10d     <none>         bdcnode2   <none>           <none>
+logsui-9d2d5      0/1     Evicted   0          67d     <none>         bdcnode2   <none>           <none>
+logsui-fd744      0/1     Evicted   0          10d     <none>         bdcnode2   <none>           <none>
+logsui-gq2db      1/1     Running   7          10d     10.244.1.28    bdcnode1   <none>           <none>
+logsui-gvqjt      0/1     Evicted   0          10d     <none>         bdcnode2   <none>           <none>
+logsui-mjm9v      0/1     Evicted   0          10d     <none>         bdcnode2   <none>           <none>
+logsui-mlrf2      0/1     Evicted   0          10d     <none>         bdcnode2   <none>           <none>
+logsui-p2gsq      0/1     Evicted   0          10d     <none>         bdcnode2   <none>           <none>
+logsui-qhqrf      0/1     Evicted   0          10d     <none>         bdcnode2   <none>           <none>
+logsui-r47pd      0/1     Evicted   0          10d     <none>         bdcnode2   <none>           <none>
+logsui-st2x7      0/1     Evicted   0          10d     <none>         bdcnode2   <none>           <none>
+logsui-z5k5t      0/1     Evicted   0          10d     <none>         bdcnode2   <none>           <none>
+master-0          3/3     Running   6          5d22h   10.244.2.104   bdcnode2   <none>           <none>
+metricsdb-0       1/1     Running   2          5d22h   10.244.2.103   bdcnode2   <none>           <none>
+metricsdc-75f6b   1/1     Running   32         124d    10.244.1.33    bdcnode1   <none>           <none>
+metricsdc-9bsb6   1/1     Running   7          113d    10.244.4.20    bdcvm2     <none>           <none>
+metricsdc-jtnff   1/1     Running   2          2d      10.244.2.108   bdcnode2   <none>           <none>
+metricsdc-vqjqz   1/1     Running   7          113d    10.244.3.21    bdcvm1     <none>           <none>
+metricsui-b72dd   0/1     Evicted   0          67d     <none>         bdcnode2   <none>           <none>
+metricsui-qhcjk   1/1     Running   15         10d     10.244.1.22    bdcnode1   <none>           <none>
+mgmtproxy-s2q9j   2/2     Running   29         67d     10.244.1.29    bdcnode1   <none>           <none>
+nmnode-0-0        2/2     Running   27         93d     10.244.1.34    bdcnode1   <none>           <none>
+sparkhead-0       4/4     Running   68         93d     10.244.1.27    bdcnode1   <none>           <none>
+storage-0-0       4/4     Running   65         93d     10.244.1.32    bdcnode1   <none>           <none>
+storage-0-1       4/4     Running   8          5d22h   10.244.2.107   bdcnode2   <none>           <none>
+
+---------------------------------------
+root@bdcmaster:/home/administrator# kubectl describe pods metricsdc-75f6b -n mssql-cluster
+Name:         metricsdc-75f6b
+Namespace:    mssql-cluster
+Priority:     0
+Node:         bdcnode1/172.31.61.218
+Start Time:   Fri, 30 Apr 2021 16:26:26 +0530
+Labels:       MSSQL_CLUSTER=mssql-cluster
+              app=metricsdc
+              controller-revision-hash=6dff55949d
+              plane=control
+              pod-template-generation=1
+              role=monitoring
+              version=aBiLdeNfYD269gA92fMN-w8HJVMg9Gg7LNW6VhwwfxGEa
+Annotations:  <none>
+Status:       Running
+IP:           10.244.1.33
+IPs:
+  IP:           10.244.1.33
+Controlled By:  DaemonSet/metricsdc
+Containers:
+  telegraf:
+    Container ID:   docker://1e3a9b75b80dde8224eeceeddfd9241f30b094affb5bf86c3568825fb5548aef
+    Image:          mcr.microsoft.com/mssql/bdc/mssql-monitor-telegraf:2019-CU8-GDR2-ubuntu-16.04
+    Image ID:       docker-pullable://mcr.microsoft.com/mssql/bdc/mssql-monitor-telegraf@sha256:f4e7332f9adab066afef7ea5ac77b7517b0bf4ce8f33ea0922a22d64c5673c95
+    Ports:          8300/TCP, 8400/TCP
+    Host Ports:     0/TCP, 0/TCP
+    State:          Running
+      Started:      Tue, 31 Aug 2021 19:13:27 +0530
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    2
+      Started:      Tue, 31 Aug 2021 15:08:27 +0530
+      Finished:     Tue, 31 Aug 2021 19:10:25 +0530
+    Ready:          True
+    Restart Count:  32
+    Environment:
+      MONITORING_HOSTNAME:      (v1:spec.nodeName)
+      HOST_IP:                  (v1:status.hostIP)
+      HOST_MOUNT_PREFIX:       /rootfs
+      HOST_PROC:               /rootfs/proc
+      HOST_SYS:                /rootfs/sys
+      HOST_ETC:                /rootfs/etc
+      MSSQL_POD_TYPE:          metricsdc
+      MSSQL_CONTAINER_TYPE:    telegraf
+      MSSQL_POD_KIND:          DaemonSet
+      MSSQL_AGENT_GRPC_PORT:   8300
+      MSSQL_AGENT_HTTPS_PORT:  8400
+      MSSQL_NAMESPACE:         mssql-cluster (v1:metadata.namespace)
+    Mounts:
+      /rootfs from rootro (ro)
+      /var/run from var-run (rw,path="telegraf")
+      /var/run/configmaps/cluster from cluster-config-volume (rw)
+      /var/run/secrets/certificates/agent from metricsdc-agent-secret (ro)
+      /var/run/secrets/kubernetes.io/serviceaccount from sa-mssql-metricsdc-reader-token-shsk6 (ro)
+      /var/run/secrets/mounts/credentials/metricsdb-wo-secret from metricsdb-wo-secret (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  rootro:
+    Type:          HostPath (bare host directory volume)
+    Path:          /
+    HostPathType:  
+  var-run:
+    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:     Memory
+    SizeLimit:  <unset>
+  metricsdb-wo-secret:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  metricsdb-wo-secret
+    Optional:    false
+  metricsdc-agent-secret:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  metricsdc-agent-secret
+    Optional:    false
+  cluster-config-volume:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      cluster-configmap
+    Optional:  false
+  sa-mssql-metricsdc-reader-token-shsk6:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  sa-mssql-metricsdc-reader-token-shsk6
+    Optional:    false
+QoS Class:       BestEffort
+Node-Selectors:  <none>
+Tolerations:     node.kubernetes.io/disk-pressure:NoSchedule
+                 node.kubernetes.io/memory-pressure:NoSchedule
+                 node.kubernetes.io/not-ready:NoExecute
+                 node.kubernetes.io/pid-pressure:NoSchedule
+                 node.kubernetes.io/unreachable:NoExecute
+                 node.kubernetes.io/unschedulable:NoSchedule
+Events:          <none>
+
+----------------------------------------------------
+
+
+
+metricsdc-75f6b 
+root@bdcmaster:/home/administrator# kubectl describe pods metricsdc-75f6b -n mssql-cluster
+Name:         metricsdc-75f6b
+Namespace:    mssql-cluster
+Priority:     0
+Node:         bdcnode1/172.31.61.218
+Start Time:   Fri, 30 Apr 2021 16:26:26 +0530
+Labels:       MSSQL_CLUSTER=mssql-cluster
+              app=metricsdc
+              controller-revision-hash=6dff55949d
+              plane=control
+              pod-template-generation=1
+              role=monitoring
+              version=aBiLdeNfYD269gA92fMN-w8HJVMg9Gg7LNW6VhwwfxGEa
+Annotations:  <none>
+Status:       Running
+IP:           10.244.1.33
+IPs:
+  IP:           10.244.1.33
+Controlled By:  DaemonSet/metricsdc
+Containers:
+  telegraf:
+    Container ID:   docker://1e3a9b75b80dde8224eeceeddfd9241f30b094affb5bf86c3568825fb5548aef
+    Image:          mcr.microsoft.com/mssql/bdc/mssql-monitor-telegraf:2019-CU8-GDR2-ubuntu-16.04
+    Image ID:       docker-pullable://mcr.microsoft.com/mssql/bdc/mssql-monitor-telegraf@sha256:f4e7332f9adab066afef7ea5ac77b7517b0bf4ce8f33ea0922a22d64c5673c95
+    Ports:          8300/TCP, 8400/TCP
+    Host Ports:     0/TCP, 0/TCP
+    State:          Running
+      Started:      Tue, 31 Aug 2021 19:13:27 +0530
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    2
+      Started:      Tue, 31 Aug 2021 15:08:27 +0530
+      Finished:     Tue, 31 Aug 2021 19:10:25 +0530
+    Ready:          True
+    Restart Count:  32
+    Environment:
+      MONITORING_HOSTNAME:      (v1:spec.nodeName)
+      HOST_IP:                  (v1:status.hostIP)
+      HOST_MOUNT_PREFIX:       /rootfs
+      HOST_PROC:               /rootfs/proc
+      HOST_SYS:                /rootfs/sys
+      HOST_ETC:                /rootfs/etc
+      MSSQL_POD_TYPE:          metricsdc
+      MSSQL_CONTAINER_TYPE:    telegraf
+      MSSQL_POD_KIND:          DaemonSet
+      MSSQL_AGENT_GRPC_PORT:   8300
+      MSSQL_AGENT_HTTPS_PORT:  8400
+      MSSQL_NAMESPACE:         mssql-cluster (v1:metadata.namespace)
+    Mounts:
+      /rootfs from rootro (ro)
+      /var/run from var-run (rw,path="telegraf")
+      /var/run/configmaps/cluster from cluster-config-volume (rw)
+      /var/run/secrets/certificates/agent from metricsdc-agent-secret (ro)
+      /var/run/secrets/kubernetes.io/serviceaccount from sa-mssql-metricsdc-reader-token-shsk6 (ro)
+      /var/run/secrets/mounts/credentials/metricsdb-wo-secret from metricsdb-wo-secret (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  rootro:
+    Type:          HostPath (bare host directory volume)
+    Path:          /
+    HostPathType:  
+  var-run:
+    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:     Memory
+    SizeLimit:  <unset>
+  metricsdb-wo-secret:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  metricsdb-wo-secret
+    Optional:    false
+  metricsdc-agent-secret:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  metricsdc-agent-secret
+    Optional:    false
+  cluster-config-volume:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      cluster-configmap
+    Optional:  false
+  sa-mssql-metricsdc-reader-token-shsk6:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  sa-mssql-metricsdc-reader-token-shsk6
+    Optional:    false
+QoS Class:       BestEffort
+Node-Selectors:  <none>
+Tolerations:     node.kubernetes.io/disk-pressure:NoSchedule
+                 node.kubernetes.io/memory-pressure:NoSchedule
+                 node.kubernetes.io/not-ready:NoExecute
+                 node.kubernetes.io/pid-pressure:NoSchedule
+                 node.kubernetes.io/unreachable:NoExecute
+                 node.kubernetes.io/unschedulable:NoSchedule
+Events:          <none>
+
+
+---------------------------------------------------------------------------------------
+
+root@bdcmaster:/home/administrator# kubectl get pv -n mssql-cluster -o wide
+NAME                CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS      CLAIM                            STORAGECLASS    REASON   AGE    VOLUMEMODE
+local-pv-115ae230   491Gi      RWO            Delete           Available                                    local-storage            227d   Filesystem
+local-pv-136fa2c9   934Gi      RWO            Delete           Available                                    local-storage            113d   Filesystem
+local-pv-18ba5cc9   934Gi      RWO            Delete           Available                                    local-storage            113d   Filesystem
+local-pv-193ba60a   934Gi      RWO            Delete           Available                                    local-storage            113d   Filesystem
+local-pv-220ad7e1   491Gi      RWO            Delete           Bound       mssql-cluster/data-controldb     local-storage            227d   Filesystem
+local-pv-240162ae   934Gi      RWO            Delete           Available                                    local-storage            113d   Filesystem
+local-pv-25200a55   934Gi      RWO            Delete           Available                                    local-storage            113d   Filesystem
+local-pv-26119cf4   491Gi      RWO            Delete           Bound       mssql-cluster/logs-metricsdb-0   local-storage            227d   Filesystem
+local-pv-2832deb1   491Gi      RWO            Delete           Bound       mssql-cluster/logs-controller    local-storage            227d   Filesystem
+local-pv-2bb5d062   934Gi      RWO            Delete           Available                                    local-storage            113d   Filesystem
+local-pv-2d8464ea   934Gi      RWO            Delete           Available                                    local-storage            113d   Filesystem
+local-pv-2e3763e    491Gi      RWO            Delete           Bound       mssql-cluster/data-sparkhead-0   local-storage            227d   Filesystem
+local-pv-2ee6a2a8   934Gi      RWO            Delete           Available                                    local-storage            113d   Filesystem
+local-pv-300a7b69   934Gi      RWO            Delete           Available                                    local-storage            113d   Filesystem
+local-pv-31f2f108   934Gi      RWO            Delete           Available                                    local-storage            113d   Filesystem
+local-pv-334428c0   491Gi      RWO            Delete           Bound       mssql-cluster/data-metricsdb-0   local-storage            227d   Filesystem
+local-pv-365f6ba2   491Gi      RWO            Delete           Available                                    local-storage            227d   Filesystem
+local-pv-36a5787d   491Gi      RWO            Delete           Bound       mssql-cluster/logs-storage-0-1   local-storage            227d   Filesystem
+local-pv-3856cebd   934Gi      RWO            Delete           Available                                    local-storage            113d   Filesystem
+local-pv-3bd1c6b6   491Gi      RWO            Delete           Bound       mssql-cluster/logs-nmnode-0-0    local-storage            227d   Filesystem
+local-pv-3c6453b    934Gi      RWO            Delete           Available                                    local-storage            113d   Filesystem
+local-pv-3ee8bbdb   934Gi      RWO            Delete           Available                                    local-storage            113d   Filesystem
+local-pv-403c5d7d   491Gi      RWO            Delete           Available                                    local-storage            227d   Filesystem
+local-pv-47002682   491Gi      RWO            Delete           Available                                    local-storage            227d   Filesystem
+local-pv-47a2c554   491Gi      RWO            Delete           Bound       mssql-cluster/logs-sparkhead-0   local-storage            227d   Filesystem
+local-pv-49ac18f5   491Gi      RWO            Delete           Bound       mssql-cluster/data-gateway-0     local-storage            227d   Filesystem
+local-pv-4adcb16e   491Gi      RWO            Delete           Available                                    local-storage            227d   Filesystem
+local-pv-4c783c2    491Gi      RWO            Delete           Available                                    local-storage            227d   Filesystem
+local-pv-566528e8   491Gi      RWO            Delete           Available                                    local-storage            227d   Filesystem
+local-pv-5c9b5d41   491Gi      RWO            Delete           Bound       mssql-cluster/data-data-0-0      local-storage            227d   Filesystem
+local-pv-63dc4135   491Gi      RWO            Delete           Bound       mssql-cluster/logs-compute-0-0   local-storage            227d   Filesystem
+local-pv-681e1e09   934Gi      RWO            Delete           Available                                    local-storage            113d   Filesystem
+local-pv-6ca7f68c   934Gi      RWO            Delete           Available                                    local-storage            113d   Filesystem
+local-pv-6ed001c4   934Gi      RWO            Delete           Available                                    local-storage            113d   Filesystem
+local-pv-71999d4b   934Gi      RWO            Delete           Available                                    local-storage            113d   Filesystem
+local-pv-7208de7e   934Gi      RWO            Delete           Available                                    local-storage            113d   Filesystem
+local-pv-739edd46   934Gi      RWO            Delete           Available                                    local-storage            113d   Filesystem
+local-pv-78c324ff   491Gi      RWO            Delete           Available                                    local-storage            227d   Filesystem
+local-pv-79476147   934Gi      RWO            Delete           Available                                    local-storage            113d   Filesystem
+local-pv-7979ddd7   491Gi      RWO            Delete           Available                                    local-storage            227d   Filesystem
+local-pv-7a1d50f7   491Gi      RWO            Delete           Bound       mssql-cluster/data-storage-0-1   local-storage            227d   Filesystem
+local-pv-7ab6d595   491Gi      RWO            Delete           Available                                    local-storage            227d   Filesystem
+local-pv-7b5ba883   491Gi      RWO            Delete           Available                                    local-storage            227d   Filesystem
+local-pv-7c48e00    934Gi      RWO            Delete           Available                                    local-storage            113d   Filesystem
+local-pv-81f2cd12   934Gi      RWO            Delete           Available                                    local-storage            113d   Filesystem
+local-pv-832eb333   934Gi      RWO            Delete           Available                                    local-storage            113d   Filesystem
+local-pv-89bd672    934Gi      RWO            Delete           Available                                    local-storage            113d   Filesystem
+local-pv-89ddef90   491Gi      RWO            Delete           Available                                    local-storage            227d   Filesystem
+local-pv-8a439ea6   934Gi      RWO            Delete           Available                                    local-storage            113d   Filesystem
+local-pv-8d9cd93b   491Gi      RWO            Delete           Bound       mssql-cluster/data-compute-0-0   local-storage            227d   Filesystem
+local-pv-8da28df1   934Gi      RWO            Delete           Available                                    local-storage            113d   Filesystem
+local-pv-8e5424ef   491Gi      RWO            Delete           Bound       mssql-cluster/data-controller    local-storage            227d   Filesystem
+local-pv-8f584ba2   491Gi      RWO            Delete           Bound       mssql-cluster/data-storage-0-0   local-storage            227d   Filesystem
+local-pv-90f018a0   934Gi      RWO            Delete           Available                                    local-storage            113d   Filesystem
+local-pv-9608c28f   934Gi      RWO            Delete           Available                                    local-storage            113d   Filesystem
+local-pv-9622a77b   491Gi      RWO            Delete           Bound       mssql-cluster/logs-controldb     local-storage            227d   Filesystem
+local-pv-9ae5532f   934Gi      RWO            Delete           Available                                    local-storage            113d   Filesystem
+local-pv-9c3b08f4   934Gi      RWO            Delete           Available                                    local-storage            113d   Filesystem
+local-pv-9e2665aa   491Gi      RWO            Delete           Available                                    local-storage            227d   Filesystem
+local-pv-a2887311   491Gi      RWO            Delete           Available                                    local-storage            227d   Filesystem
+local-pv-a2f36d43   934Gi      RWO            Delete           Available                                    local-storage            113d   Filesystem
+local-pv-a4bc25e    491Gi      RWO            Delete           Available                                    local-storage            227d   Filesystem
+local-pv-a68f6919   491Gi      RWO            Delete           Bound       mssql-cluster/logs-data-0-1      local-storage            227d   Filesystem
+local-pv-a6cc8334   491Gi      RWO            Delete           Available                                    local-storage            227d   Filesystem
+local-pv-a7ba15e0   934Gi      RWO            Delete           Available                                    local-storage            113d   Filesystem
+local-pv-a7bd4aaa   491Gi      RWO            Delete           Bound       mssql-cluster/data-master-0      local-storage            227d   Filesystem
+local-pv-a811ba4f   491Gi      RWO            Delete           Bound       mssql-cluster/data-data-0-1      local-storage            227d   Filesystem
+local-pv-acc6e869   934Gi      RWO            Delete           Available                                    local-storage            113d   Filesystem
+local-pv-b78691c    934Gi      RWO            Delete           Available                                    local-storage            113d   Filesystem
+local-pv-bb891f4f   934Gi      RWO            Delete           Available                                    local-storage            113d   Filesystem
+local-pv-bc2a17ac   491Gi      RWO            Delete           Bound       mssql-cluster/logs-logsdb-0      local-storage            227d   Filesystem
+local-pv-bf47bd99   491Gi      RWO            Delete           Available                                    local-storage            227d   Filesystem
+local-pv-bf91f414   491Gi      RWO            Delete           Bound       mssql-cluster/data-nmnode-0-0    local-storage            227d   Filesystem
+local-pv-c11cd216   491Gi      RWO            Delete           Bound       mssql-cluster/logs-master-0      local-storage            227d   Filesystem
+local-pv-c1405505   934Gi      RWO            Delete           Available                                    local-storage            113d   Filesystem
+local-pv-c281d806   934Gi      RWO            Delete           Available                                    local-storage            113d   Filesystem
+local-pv-c7cc9206   934Gi      RWO            Delete           Available                                    local-storage            113d   Filesystem
+local-pv-cd48b45c   491Gi      RWO            Delete           Bound       mssql-cluster/logs-gateway-0     local-storage            227d   Filesystem
+local-pv-ceab7865   934Gi      RWO            Delete           Available                                    local-storage            113d   Filesystem
+local-pv-d18e4048   491Gi      RWO            Delete           Available                                    local-storage            227d   Filesystem
+local-pv-d3091428   934Gi      RWO            Delete           Available                                    local-storage            113d   Filesystem
+local-pv-d3afb595   491Gi      RWO            Delete           Available                                    local-storage            227d   Filesystem
+local-pv-d517e7     934Gi      RWO            Delete           Available                                    local-storage            113d   Filesystem
+local-pv-d6156288   934Gi      RWO            Delete           Available                                    local-storage            113d   Filesystem
+local-pv-d8731a6    934Gi      RWO            Delete           Available                                    local-storage            113d   Filesystem
+local-pv-d9d52696   491Gi      RWO            Delete           Available                                    local-storage            227d   Filesystem
+local-pv-dd121b1b   491Gi      RWO            Delete           Available                                    local-storage            227d   Filesystem
+local-pv-e1345981   934Gi      RWO            Delete           Available                                    local-storage            113d   Filesystem
+local-pv-e505a548   934Gi      RWO            Delete           Available                                    local-storage            113d   Filesystem
+local-pv-eb065e07   491Gi      RWO            Delete           Bound       mssql-cluster/logs-storage-0-0   local-storage            227d   Filesystem
+local-pv-ed5d2827   934Gi      RWO            Delete           Available                                    local-storage            113d   Filesystem
+local-pv-f1e6510f   934Gi      RWO            Delete           Available                                    local-storage            113d   Filesystem
+local-pv-f295f7d3   491Gi      RWO            Delete           Available                                    local-storage            227d   Filesystem
+local-pv-f6c2e1af   934Gi      RWO            Delete           Available                                    local-storage            113d   Filesystem
+local-pv-faed30b8   491Gi      RWO            Delete           Available                                    local-storage            227d   Filesystem
+local-pv-fb25f64e   491Gi      RWO            Delete           Bound       mssql-cluster/data-logsdb-0      local-storage            227d   Filesystem
+local-pv-fc2d2fdd   934Gi      RWO            Delete           Available                                    local-storage            113d   Filesystem
+local-pv-fd1fa639   491Gi      RWO            Delete           Bound       mssql-cluster/logs-data-0-0      local-storage            227d   Filesystem
+local-pv-fe9a91db   491Gi      RWO            Delete           Available                                    local-storage            227d   Filesystem
+local-pv-ffe01e14   934Gi      RWO            Delete           Available                                    local-storage            113d   Filesystem
+
+
+
+
+
+
+
+
